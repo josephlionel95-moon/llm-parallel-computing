@@ -1,0 +1,11 @@
+[project]
+name = "llmdist"
+version = "0.1.0"
+description = "LLM distributed training from first principles - educational library"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

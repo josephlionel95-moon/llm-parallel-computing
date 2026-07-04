@@ -1,0 +1,10 @@
+torch>=2.2
+numpy
+matplotlib
+plotly
+networkx
+rich
+tqdm
+einops
+jupytext
+pytest
