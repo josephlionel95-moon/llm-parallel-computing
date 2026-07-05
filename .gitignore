@@ -7,3 +7,5 @@ profiling/traces/
 *.pt
 *.pth
 .env
+experiments/baseline/results/
+experiments/baseline/results_smoke/

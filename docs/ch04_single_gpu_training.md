@@ -462,4 +462,4 @@ measured comes from your run of these scripts.
 See `references/ch04.md` for the annotated list. Key items: Kingma & Ba 2015 (Adam —
 where m and v come from); Micikevicius et al. 2018 (mixed-precision training — the
 loss-scaling recipe verbatim); Rajbhandari et al. 2020 (ZeRO — names our 16 B/param
-as 2+2+K, K=12); PyTorch AMP and 
+as 2+2+K, K=12); PyTorch AMP and profiler docs.

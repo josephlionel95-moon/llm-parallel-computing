@@ -286,4 +286,7 @@ if __name__ == "__main__":
 # ## Summary
 #
 # - Assignment aliases; `data_ptr()` is the ground truth for "do these tensors share memory".
-# - Process boundaries admit exactly three moves: pickle bytes, shared-memory handles, reconst
+# - Process boundaries admit exactly three moves: pickle bytes, shared-memory handles, reconstruction.
+# - Tensors serialize as one buffer; Python containers per element — orders of magnitude apart.
+# - The GIL serializes bytecode, not C kernels; hence processes for data loading and training.
+# - CUDA + multiprocessing ⇒ spawn, top-level worker functions, one CUDA context per process.

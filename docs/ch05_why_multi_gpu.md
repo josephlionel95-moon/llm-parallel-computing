@@ -454,4 +454,4 @@ probing so you can watch theory meet the allocator.
 See `references/ch05.md`. Key items: Kaplan et al. 2020 and Hoffmann et al. 2022
 (scaling laws / Chinchilla); Amdahl 1967; Gustafson 1988; McCandlish et al. 2018
 (critical batch size); Brown et al. 2020 (GPT-3, the cluster that the arithmetic
-demands
+demands).

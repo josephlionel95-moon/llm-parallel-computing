@@ -42,6 +42,11 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--per-tensor", action="store_true",
                     help="one all_reduce per grad tensor instead of one flat")
     ap.add_argument("--save-plots", action="store_true")
+    ap.add_argument("--metrics", action="store_true",
+                    help="save a RunRecord JSON to experiments/baseline/results/ "
+                         "for comparison via experiments/baseline/compare_runs.py")
+    ap.add_argument("--run-name", default=None,
+                    help="record name (default: manual_dp_w<world>)")
     return ap.parse_args()
 
 
@@ -102,6 +107,32 @@ def worker(rank: int, world: int) -> None:
               f"— this whole slice is serialized after backward (fixed in ch09)")
         print(f"throughput: {tok_s:,.0f} tokens/s global "
               f"({tok_s / world:,.0f} per process)")
+        if args.metrics:
+            from llmdist.utils import metrics
+            peak_mb = (torch.cuda.max_memory_allocated(device) / 2**20
+                       if device.type == "cuda" else 0.0)
+            rec = metrics.RunRecord(
+                run_name=args.run_name or f"manual_dp_w{world}",
+                strategy="manual_dp",
+                world_size=world,
+                device=device.type,
+                backend=dist.get_backend(),
+                n_params=n_params,
+                global_batch=args.bsz * world,
+                seq_len=cfg.block_size,
+                steps=args.steps,
+                elapsed_s=elapsed,
+                tokens_per_s=tok_s,
+                step_ms=1e3 * elapsed / args.steps,
+                phase_ms={k: 1e3 * v / args.steps for k, v in phase.items()},
+                peak_mem_mb=peak_mb,
+                final_loss=metrics.final_loss(losses),
+                losses=losses,
+                extra={"grad_mode": "per-tensor" if args.per_tensor else "flat"},
+            )
+            path = metrics.save(rec, os.path.join(ROOT, "experiments",
+                                                  "baseline", "results"))
+            print(f"metrics record: {path}")
         if args.save_plots:
             import matplotlib.pyplot as plt
             fig, ax = plt.subplots(figsize=(7, 4))

@@ -351,4 +351,6 @@ except Exception as e:  # directory may not exist in some environments
 # - fp16 underflows below 2^-24 → GradScaler (scale, unscale, skip, adapt);
 #   bf16 has fp32's exponent range and needs none of it.
 # - zero_grad(set_to_none=True) frees grads instead of zeroing them.
-# - Predict with model_memory_ledger, verify with track/max_memory_allocated
+# - Predict with model_memory_ledger, verify with track/max_memory_allocated —
+#   or on CPU, walk the tensors yourself; the ledger is device-independent.
+# - Profile steady state, not step 0; read traces for gaps, expect matmuls on top.

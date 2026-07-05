@@ -134,7 +134,17 @@ python -m llmdist.utils.env_check
 
 # Run a 2-process distributed hello world (works even on CPU)
 torchrun --nproc_per_node=2 experiments/ch06/hello_distributed.py
+
+# Single-GPU baseline vs data parallelism, on the same model & data:
+python experiments/baseline/train_single_gpu.py --global-batch 16
+torchrun --nproc_per_node=2 experiments/ch08/manual_dp_train.py --bsz 8 --metrics
+python experiments/baseline/compare_runs.py --save-plots
 ```
+
+Every trainer writes the same [RunRecord](src/llmdist/utils/metrics.py) JSON, so any
+strategy can be compared against the single-GPU baseline — throughput, speedup, scaling
+efficiency, communication share, peak memory, and loss curves. See
+[experiments/baseline/](experiments/baseline/README.md).
 
 ### On Kaggle (2× T4 — recommended for real multi-GPU)
 
