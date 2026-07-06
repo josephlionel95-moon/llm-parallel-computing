@@ -82,7 +82,13 @@ wrapping policies; comparison with DeepSpeed ZeRO-3.
 **17 DeepSpeed** — engine architecture, JSON config, launcher, ZeRO-Offload/Infinity.
 **18 Megatron concepts** — combining TP×PP×DP×SP×EP; how to choose degrees; 3D parallelism
 of GPT-3/PaLM/Llama-scale runs.
-**19 Distributed checkpointing** — sharded save/load, resharding, async checkpoints.
+**19 Checkpointing** ✅
+The full training state (seven pieces) and bitwise-exact resume; atomic saves
+(tmp+fsync+replace); checkpoint size ledger (12 B/param); Young–Daly optimal interval
+τ*=√(2δM), derived and Monte-Carlo verified; rotation and preemption-proof loops for
+free-tier hardware; DDP rank-0 saving; sharded save/load + resharding with
+`torch.distributed.checkpoint`. (Written ahead of 15–18 — it depends only on 04/06/08;
+its sharded path is exercised again once FSDP arrives.)
 **20 Mixed precision** — IEEE formats, FP16 vs BF16 dynamic range, loss scaling, master
 weights, FP8 (Transformer Engine) concepts.
 **21 Activation checkpointing** — recompute math (√L policy), selective checkpointing.

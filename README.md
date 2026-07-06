@@ -96,7 +96,7 @@ You have **never truly understood** what happens when a second GPU joins.
 | 16 | FSDP: manual → official | 🔴 Hard | 6–8 h | — | — | 🔜 Phase 2 |
 | 17 | DeepSpeed | 🟡 Medium | 4–5 h | — | — | 🔜 Phase 3 |
 | 18 | Megatron concepts & 3D parallelism | 🔴 Hard | 5–7 h | — | — | 🔜 Phase 3 |
-| 19 | Distributed checkpointing | 🟡 Medium | 3–4 h | — | — | 🔜 Phase 3 |
+| 19 | Checkpointing: exact resume, atomic saves, sharded state | 🟡 Medium | 4–5 h | [docs](docs/ch19_checkpointing.md) | [nb](notebooks/ch19_checkpointing.ipynb) | ✅ |
 | 20 | Mixed precision: FP32/FP16/BF16/FP8 | 🟡 Medium | 4–5 h | — | — | 🔜 Phase 3 |
 | 21 | Activation checkpointing | 🟡 Medium | 3–4 h | — | — | 🔜 Phase 3 |
 | 22 | Gradient accumulation | 🟢 Easy | 2–3 h | — | — | 🔜 Phase 3 |
